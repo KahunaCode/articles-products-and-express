@@ -21,8 +21,14 @@ function getProductById(id) {
   return result;
 }
 
+function getAllProducts(){
+  return DataStore;
+}
+
+
 
 module.exports = {
   createProduct,
-  getProductById
+  getProductById,
+  getAllProducts
 };
