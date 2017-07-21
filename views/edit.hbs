@@ -1,0 +1,15 @@
+<h3>Edit and update #{{id}}</h3>
+
+
+<form action="/products/{{id}}/edit" method="post" enctype="application/x-www-form-urlencoded">
+  <input type="hidden" name="_method" value="PUT">
+  <label for="name">Edit this entry:</label>
+  <br>
+  <input type="text" id="name" name="EditMe"placeholder="update type of product">
+  <br>
+  <input type="text" id="price" placeholder="update price">
+  <br>
+  <input type="text" id="inventory" placeholder="update inventory">
+  <br>
+  <input type="submit" value="submit">
+</form>
