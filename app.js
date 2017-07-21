@@ -2,68 +2,28 @@
 
 const express = require('express');
 const app = express();
+const exphbs = require('express-handlebars');
 const bp = require('body-parser');
 const fs = require('fs');
 const PORT = process.env.PORT || 3000;
 
+const articles = require('./routes/articles.js');
+const products = require('./routes/products.js');
+
 app.use(bp.json());
 app.use(express.static('products'));
 
-
-//{ name: String, price: String, inventory: String }
-
-app.get('/products/:id', (req,res) => {
-    res.send(req.params.id);
+const hbs = exphbs.create({
+  defaultLayout: 'main',
+  extname: '.hbs'
 });
 
-function parseWrite({name, price, inventory}){
-  //writing basic html, should convert to hbs
-  var id = name;
+app.engine('hbs', hbs.engine);
 
-  var page = `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <title>Product - ${name}</title>
-      </head>
-      <body>
-        <h1>${name}</h1>
-        <h2>cost: ${price}</h2>
-        <h2>current stock: ${inventory}</h2>
-      </body>
-    </html>`;
-  fs.writeFile(`./products/${id}.html`, page, (err) =>{
-    if (err) throw err;
-    console.log(`./products/${id}.html`);
-    console.log("file saved");
-  });
-}
+app.set('view engine', 'hbs');
 
-
-app.post('/products', (req,res) => {
-  if (typeof req.body.name === "string" && typeof req.body.price === "string"){
-    console.log(req.body.name);
-    parseWrite(req.body);
-    // fs.writeFile(`./products/${req.body.name}.html`, req.body.name, (err) =>{
-    //   if (err) throw err;
-    //   console.log("file written");
-    // });
-    res.send(`{"success":true}`);
-  }
-  else{
-    console.log('bad post criteria');
-    res.send(`{"success":false}`);
-  }
-});
-
-
-
-
-
-
-
-
-
+app.use('/products', products);
+app.use('/articles', articles);
 
 
 const server = app.listen(PORT, () => {
