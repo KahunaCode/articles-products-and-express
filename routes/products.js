@@ -12,6 +12,9 @@ router
     .then(() => {
       console.log('creating new prodcut', req.body);
       res.end();
+    })
+    .catch((err) => {
+      console.log(err);
     });
   // res.end();
 })
@@ -24,6 +27,9 @@ router
     .then((product) => {
       console.log(product);
       res.render('home', product);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   //res.render('home', product);
 })
@@ -34,6 +40,9 @@ router
     .then((products) => {
       console.log(typeof products);
       res.render('index', products);
+    })
+    .catch((err) => {
+      console.log(err);
     });
   //res.render('index', allProducts);
 })
