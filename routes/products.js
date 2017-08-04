@@ -7,7 +7,6 @@ const DS_Products = require('../db/DS_Products.js');
 router
 .post('/', (req,res) =>{
   console.log('POST /products', req.body);
-  //DS_Products.createProduct(req.body);
   DS_Products.createProduct(req.body)
     .then(() => {
       console.log('creating new prodcut', req.body);
@@ -16,13 +15,10 @@ router
     .catch((err) => {
       console.log(err);
     });
-  // res.end();
 })
 .get('/:id', (req,res) =>{
   console.log('GET /products/:id', req.params.id);
   const productId = Number(req.params.id);
-  // const product = DS_Products.getProductById(productId);
-  // console.log(product);
   DS_Products.getProductById(productId)
     .then((product) => {
       console.log(product);
@@ -31,11 +27,8 @@ router
     .catch((err) => {
       console.log(err);
     });
-  //res.render('home', product);
 })
 .get('/', (req,res) => {
-  // const allProducts = DS_Products.getAllProducts();
-  // console.log('get all products', allProducts);
   DS_Products.getAllProducts()
     .then((products) => {
       console.log(typeof products);
@@ -44,7 +37,6 @@ router
     .catch((err) => {
       console.log(err);
     });
-  //res.render('index', allProducts);
 })
 .get('/:id/edit', (req,res) => {
   console.log('got an edit request');
