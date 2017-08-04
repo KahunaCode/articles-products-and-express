@@ -34,6 +34,16 @@ function getAllProducts(){
   return db.query('SELECT * FROM products');
 }
 
+function updateById(product){
+  let newProduct = {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    inventory: product.inventory
+  };
+  return db.none("UPDATE products SET name = ${name}, price = ${price}, inventory = ${inventory}");
+}
+
 module.exports = {
   createProduct,
   getProductById,

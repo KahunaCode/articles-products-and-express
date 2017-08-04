@@ -48,7 +48,7 @@ router
   console.log('got an put request');
   console.log('id is', req.params.id);
   const productId = {id: Number(req.params.id)};
-  res.render('edit', productId);
+  res.redirect('/products');
 });
 
 module.exports = router;
