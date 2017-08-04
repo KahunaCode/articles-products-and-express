@@ -2,13 +2,14 @@
 
 const DataStore = [];
 const pgp = require('pg-promise')();
+const {database, user, password} = require('../config/config.json');
 
 const connectionOptions = {
   host: "localhost",
   port: 5432,
-  database: "datastore",
-  user: "productsuser",
-  password: "user"
+  database: database,
+  user: user,
+  password: password
 };
 const db = pgp(connectionOptions);
 
@@ -36,7 +37,7 @@ function getProductById(id) {
   //   }
   // });
   // return result;
-  return db.one("SELECT * FROM products WHERE id = '1'");
+  return db.one(`SELECT * FROM products WHERE id = '${id}'`);
 }
 
 function getAllProducts(){
