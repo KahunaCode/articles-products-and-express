@@ -7,8 +7,13 @@ const DS_Products = require('../db/DS_Products.js');
 router
 .post('/', (req,res) =>{
   console.log('POST /products', req.body);
-  DS_Products.createProduct(req.body);
-  res.end();
+  //DS_Products.createProduct(req.body);
+  DS_Products.createProduct(req.body)
+    .then(() => {
+      console.log('creating new prodcut', req.body);
+      res.end();
+    });
+  // res.end();
 })
 .get('/:id', (req,res) =>{
   console.log('GET /products/:id', req.params.id);

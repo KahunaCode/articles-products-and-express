@@ -14,7 +14,14 @@ const db = pgp(connectionOptions);
 
 
 function createProduct(product) {
-  DataStore.push(product);
+  console.log('the product name to insert is', product.name);
+  //DataStore.push(product);
+  let newProduct = {
+    name: product.name,
+    price: product.price,
+    inventory: product.inventory
+  };
+  return db.none('INSERT INTO products VALUES (default, ${name}, ${price}, ${inventory})', newProduct);
 }
 
 function getProductById(id) {
