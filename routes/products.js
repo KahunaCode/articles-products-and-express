@@ -13,14 +13,24 @@ router
 .get('/:id', (req,res) =>{
   console.log('GET /products/:id', req.params.id);
   const productId = Number(req.params.id);
-  const product = DS_Products.getProductById(productId);
-  console.log(product);
-  res.render('home', product);
+  // const product = DS_Products.getProductById(productId);
+  // console.log(product);
+  DS_Products.getProductById(productId)
+    .then((product) => {
+      console.log(product);
+      res.render('home', product);
+    });
+  //res.render('home', product);
 })
 .get('/', (req,res) => {
-  const allProducts = DS_Products.getAllProducts();
-  console.log('get all products', allProducts);
-  res.render('index', allProducts);
+  // const allProducts = DS_Products.getAllProducts();
+  // console.log('get all products', allProducts);
+  DS_Products.getAllProducts()
+    .then((products) => {
+      console.log(typeof products);
+      res.render('index', products);
+    });
+  //res.render('index', allProducts);
 })
 .get('/:id/edit', (req,res) => {
   console.log('got an edit request');

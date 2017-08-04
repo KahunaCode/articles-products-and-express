@@ -1,7 +1,17 @@
 /* jshint esversion: 6 */
 
-
 const DataStore = [];
+const pgp = require('pg-promise')();
+
+const connectionOptions = {
+  host: "localhost",
+  port: 5432,
+  database: "datastore",
+  user: "productsuser",
+  password: "user"
+};
+const db = pgp(connectionOptions);
+
 
 function createProduct(product) {
   DataStore.push(product);
@@ -10,19 +20,27 @@ function createProduct(product) {
 function getProductById(id) {
   console.log("DataStore", DataStore);
   console.log('DS get products by Id', id);
-  var result;
-  DataStore.forEach( (item) =>{
-    console.log('loop item '+typeof item.id + '  '+ typeof id);
-    if (item.id === id) {
-      console.log('id forEach loop is ', item.id);
-      result = item;
-    }
-  });
-  return result;
+  // var result;
+  // DataStore.forEach( (item) =>{
+  //   console.log('loop item '+typeof item.id + '  '+ typeof id);
+  //   if (parseInt(item.id) === id) {
+  //     console.log('id forEach loop is ', item.id);
+  //     result = item;
+  //   }
+  // });
+  // return result;
+  return db.one("SELECT * FROM products WHERE id = '1'");
 }
 
 function getAllProducts(){
-  return DataStore;
+  // var items = {};
+  // DataStore.forEach( (item)=>{
+  //   items.name += ' ' + item.name;
+  // });
+  // return items;
+  //return DataStore;
+  //console.log('getAllProducts function');
+  return db.query('SELECT * FROM products');
 }
 
 
